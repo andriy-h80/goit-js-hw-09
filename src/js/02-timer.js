@@ -33,10 +33,7 @@ const options = {
         selectedDate = selectedDates[0];
       }
     },
-// згідно документації flatpickr дуже рекомендується вмикати цей параметр
-    altInput: true,
-    altFormat: "F j, Y",
-    dateFormat: "Y-m-d",
+    
 //  можливість вводити дату безпосередньо в поле введення
     allowInput: true,
   };
