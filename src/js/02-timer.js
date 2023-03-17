@@ -4,6 +4,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 
 let selectedDate = null;
+let timer = null;
 
 const refs = {
     startBtn: document.querySelector('button[data-start]'),
@@ -14,6 +15,7 @@ const refs = {
     dataSeconds: document.querySelector('[data-seconds]'),
 };
 
+// refs.input.disabled = false;
 refs.startBtn.disabled = true;
 refs.startBtn.addEventListener('click', onStartTimerClick);
 // мінімальне оформлення елементів інтерфейсу
@@ -33,7 +35,7 @@ const options = {
         selectedDate = selectedDates[0];
       }
     },
-    
+
 //  можливість вводити дату безпосередньо в поле введення
     allowInput: true,
   };
@@ -41,12 +43,17 @@ const options = {
 flatpickr(refs.input, options);
 
 function onStartTimerClick() {
-    setInterval(() => {
+    timer = setInterval(() => {
         const currentDate = Date.now();
-        const deltaTime = selectedDate - currentDate;
+        let deltaTime = selectedDate - currentDate;
         renderTimer(convertMs(deltaTime));
         refs.startBtn.disabled = true;
-        // refs.input.disabled = true;
+        refs.input.disabled = true;
+
+        if(deltaTime < 1000) {
+            clearInterval(timer);
+            refs.input.disabled = false;
+        };
     }, 1000);
 };
 
