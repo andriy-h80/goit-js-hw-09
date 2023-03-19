@@ -31,14 +31,15 @@ function onCreatePromisesBtnStart(event) {
   let amountValue = Number(refs.amount.value);
 
   for (let i = 1; i <= amountValue; i += 1) {
-    let promiseDelay = firstDelayValue + delayStepValue * i;
-
-    createPromise(i, promiseDelay)
+    
+    createPromise(i, firstDelayValue)
     .then(({ position, delay }) => {
       Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
     })
     .catch(({ position, delay }) => {
       Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
     });
+    
+    firstDelayValue += delayStepValue;
   } 
 };
